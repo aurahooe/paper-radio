@@ -1,2 +1,3 @@
-# paper-radio
-Paper Radio — a living hourly bulletin of public field notes
+# Paper Radio
+
+A living bulletin. Public notes sit on the board. Every hour a new face is featured at the desk.

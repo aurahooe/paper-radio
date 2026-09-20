@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Paper Radio — on the hour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="scan" aria-hidden="true"></div>
+
+  <header class="mast">
+    <div class="mast-left">
+      <p class="callsign">W-PPR  ·  96.4</p>
+      <a class="wordmark" href="#desk">Paper Radio</a>
+    </div>
+    <div class="mast-mid">
+      <div class="dial">
+        <span class="needle"></span>
+      </div>
+      <p class="now-playing" id="nowPlaying">warming the tubes…</p>
+    </div>
+    <nav class="mast-right">
+      <button type="button" data-view="desk">Desk</button>
+      <button type="button" data-view="board">Board</button>
+      <button type="button" data-view="booth" id="boothBtn">Booth</button>
+      <button type="button" id="authBtn" class="ink">Sign in</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="view-desk" class="view active">
+      <article class="feature card" id="featureCard">
+        <p class="kicker"><span id="hourStamp">this hour</span> · featured</p>
+        <h1 id="featureTitle">The desk is empty.</h1>
+        <p class="lede" id="featureBody">Public notes land here when someone marks them for the room. Until then, the room hums.</p>
+        <p class="byline" id="featureBy">— the night engineer</p>
+      </article>
+
+      <aside class="ticker-wrap">
+        <p class="label">on the wire</p>
+        <div class="ticker" id="ticker"></div>
+      </aside>
+
+      <section class="board-preview">
+        <div class="section-head">
+          <h2>Public board</h2>
+          <p>Anything marked public lives here. Private stays in the booth.</p>
+        </div>
+        <div class="grid" id="publicGrid"></div>
+      </section>
+    </section>
+
+    <section id="view-board" class="view">
+      <div class="section-head">
+        <h2>The board</h2>
+        <p>Every public note, newest first. No algorithm. Just paper.</p>
+      </div>
+      <div class="grid wide" id="fullBoard"></div>
+    </section>
+
+    <section id="view-booth" class="view">
+      <div class="section-head">
+        <h2>The booth</h2>
+        <p>Write. Keep it private, or throw it on the board.</p>
+      </div>
+      <form id="noteForm" class="composer card">
+        <label>
+          Title
+          <input name="title" maxlength="80" required placeholder="something you noticed" />
+        </label>
+        <label>
+          Note
+          <textarea name="body" rows="7" required placeholder="ink it here"></textarea>
+        </label>
+        <label class="check">
+          <input type="checkbox" name="is_public" />
+          Mark public — show it on the board
+        </label>
+        <button type="submit" class="ink">File the note</button>
+      </form>
+      <div class="grid" id="mineGrid"></div>
+    </section>
+
+    <section id="view-auth" class="view">
+      <form id="authForm" class="composer card">
+        <h2 id="authTitle">Sign in</h2>
+        <p class="hint">Email and a password. That’s the whole lock.</p>
+        <label>
+          Email
+          <input type="email" name="email" required autocomplete="email" />
+        </label>
+        <label>
+          Password
+          <input type="password" name="password" required minlength="6" autocomplete="current-password" />
+        </label>
+        <label id="handleRow" hidden>
+          Handle
+          <input name="handle" maxlength="24" placeholder="inkname" />
+        </label>
+        <div class="row">
+          <button type="submit" class="ink" id="authSubmit">Enter</button>
+          <button type="button" id="toggleMode">Need an account?</button>
+        </div>
+        <p class="err" id="authErr"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>Paper Radio signs on every hour. Tubes stay warm.</p>
+    <p id="sessionLine">unsigned</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+</body>
+</html>
